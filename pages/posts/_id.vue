@@ -1,10 +1,31 @@
 
 <template>
+
   <div class="container">
+        <navbar />
     <article>
+
       <h1 class="title">{{post.title}}</h1>
       <p>{{post.content}}</p>
+
     </article>
+
+    <aside>
+
+      <h3>Related posts</h3>
+
+        <ul>
+          <li v-for="related in relatedPosts" :key="related.title"> <!--                          Loops through each related in relatedPosts -> computed  -->
+            <!-- <a :href="`/posts/${related.id}`">{{ related.title }}</a>                        Reloads page onclick   -->
+              <!-- <nuxt-link :to="`/posts/${related.id}`">{{ related.title }}</nuxt-link>        Doesent reload page onclick -> nuxt-link :to  -->
+              <nuxt-link :to="{name: 'posts-id', params: {id: related.id}}">
+                {{ related.title }}
+
+              </nuxt-link>
+          </li>
+        </ul>
+
+    </aside>
   </div>
 </template>
 
@@ -15,7 +36,7 @@
 
       return{
 
-        id: this.$route.params.id,
+        id: this.$route.params.id, //Define route of id
 
         posts: [
 
@@ -40,11 +61,13 @@
 
     computed: {
       post () {
-        return this.posts.find(post => post.id === this.id)
+        return this.posts.find(post => post.id === this.id) // Show post based on route, eg /balut
+      },
+
+      relatedPosts (){
+        return this.posts.filter(post => post.id !== this.id) // Shows all post except present post
       }
     }
-
-
   }
 
 </script>
