@@ -2,7 +2,7 @@
 <template>
 
   <div class="container">
-        <navbar />
+
     <article>
 
       <h1 class="title">{{post.title}}</h1>
