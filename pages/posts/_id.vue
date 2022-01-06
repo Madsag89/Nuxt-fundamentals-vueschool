@@ -32,40 +32,35 @@
 <script>
   export default {
 
+    head () {
+      return{
+        title: this.post.title,
+        meta: [
+          { name: 'twitter:title', content: 'Nuxt Fundamentals by Vue School'},
+          { name: 'twitter:description', content: 'Nuxt + Vue School = 🍕'},
+          { name: 'twitter:image', content: 'https://i.imgur.com/UYP2umJ.png'},
+          { name: 'twitter:card', content: 'summary_large_image'}
+        ]
+      }
+    },
+
     data () {
 
       return{
 
-        id: this.$route.params.id, //Define route of id
+        id: this.$route.params.id //Define route of id
 
-        posts: [
 
-          {
-           id: 'balut',
-           title: 'What is Balut?',
-           content: 'If someone placed balut on your plate, you might think they were serving you a hardboiled egg. That is, until you cracked it open and a fully intact duck embryo spilled out. Balut, considered a delicacy in many Asian countries, is produced when fertilized duck eggs are placed in warm sunlight. After about eight days, the eggs are held up to the light and checked to ensure that the budding embryo is ready. Then, the eggs are cooked and served with a dash of salt and a few squirts of lemon juice.'
-          },
-          {
-           id: 'serum',
-           title: 'Lorem ipsum idk',
-           content: 'If someone placed balut on your plate, you might think they were serving you a hardboiled egg. That is, until you cracked it open and a fully intact duck embryo spilled out. Balut, considered a delicacy in many Asian countries, is produced when fertilized duck eggs are placed in warm sunlight. After about eight days, the eggs are held up to the light and checked to ensure that the budding embryo is ready. Then, the eggs are cooked and served with a dash of salt and a few squirts of lemon juice.'
-          },
-          {
-           id: 'papirkurv',
-           title: 'Vue school',
-           content: 'If someone placed balut on your plate, you might think they were serving you a hardboiled egg. That is, until you cracked it open and a fully intact duck embryo spilled out. Balut, considered a delicacy in many Asian countries, is produced when fertilized duck eggs are placed in warm sunlight. After about eight days, the eggs are held up to the light and checked to ensure that the budding embryo is ready. Then, the eggs are cooked and served with a dash of salt and a few squirts of lemon juice.'
-          },
-        ]
       }
     },
 
     computed: {
       post () {
-        return this.posts.find(post => post.id === this.id) // Show post based on route, eg /balut
+        return this.$store.state.posts.all.find(post => post.id === this.id) // Show post based on route, eg /balut
       },
 
       relatedPosts (){
-        return this.posts.filter(post => post.id !== this.id) // Shows all post except present post
+        return this.$store.state.posts.all.filter(post => post.id !== this.id) // Shows all post except present post
       }
     }
   }
